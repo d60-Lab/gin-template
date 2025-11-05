@@ -26,7 +26,7 @@ tidy: ## 整理依赖
 install-tools: ## 安装开发工具
 	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 	go install github.com/swaggo/swag/cmd/swag@latest
-	go install github.com/cosmtrek/air@latest
+	go install github.com/air-verse/air@v1.52.3
 
 swagger: ## 生成 Swagger 文档
 	swag init -g cmd/server/main.go -o docs --parseDependency --parseInternal
