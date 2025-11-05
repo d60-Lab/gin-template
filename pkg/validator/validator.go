@@ -11,7 +11,9 @@ import (
 func Init() {
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
 		// 注册自定义验证规则
-		_ = v.RegisterValidation("username", validateUsername)
+		if err := v.RegisterValidation("username", validateUsername); err != nil {
+			panic(err)
+		}
 	}
 }
 

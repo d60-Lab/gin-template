@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/d60-Lab/gin-template/config"
-	"github.com/d60-Lab/gin-template/internal/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+
+	"github.com/d60-Lab/gin-template/config"
+	"github.com/d60-Lab/gin-template/internal/model"
 )
 
 // InitDB 初始化数据库连接

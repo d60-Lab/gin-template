@@ -46,7 +46,7 @@ jobs:
               run: go test -v -race -coverprofile=coverage.out -covermode=atomic ./...
 
             - name: Upload coverage to Codecov
-              uses: codecov/codecov-action@v3
+              uses: codecov/codecov-action@v4
               with:
                   file: ./coverage.out
                   flags: unittests
@@ -70,7 +70,7 @@ jobs:
                   go build -v -o bin/server cmd/server/main.go
 
             - name: Upload artifact
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: server-binary
                   path: bin/server
@@ -120,6 +120,9 @@ jobs:
     security:
         name: Security Scan
         runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            security-events: write
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
@@ -138,7 +141,7 @@ jobs:
                   output: "trivy-results.sarif"
 
             - name: Upload Trivy results to GitHub Security
-              uses: github/codeql-action/upload-sarif@v2
+              uses: github/codeql-action/upload-sarif@v3
               if: always()
               with:
                   sarif_file: "trivy-results.sarif"

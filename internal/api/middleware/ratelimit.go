@@ -1,9 +1,10 @@
 package middleware
 
 import (
-	"github.com/d60-Lab/gin-template/pkg/response"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/time/rate"
+
+	"github.com/d60-Lab/gin-template/pkg/response"
 )
 
 // RateLimit 限流中间件

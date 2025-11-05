@@ -1,10 +1,13 @@
 package middleware
 
 import (
+	"context"
+
 	"github.com/gin-gonic/gin"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"
 	"go.opentelemetry.io/otel"
-	"go.opentelemetry.io/otel/exporters/jaeger"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp"
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/sdk/resource"
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
@@ -24,8 +27,12 @@ func InitTracing(config TracingConfig) (*sdktrace.TracerProvider, error) {
 		return nil, nil
 	}
 
-	// 创建 Jaeger exporter
-	exporter, err := jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint(config.JaegerEndpoint)))
+	// 创建 OTLP HTTP exporter
+	client := otlptracehttp.NewClient(
+		otlptracehttp.WithEndpoint(config.JaegerEndpoint),
+		otlptracehttp.WithInsecure(),
+	)
+	exporter, err := otlptrace.New(context.Background(), client)
 	if err != nil {
 		return nil, err
 	}

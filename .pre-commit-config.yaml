@@ -21,7 +21,7 @@ repos:
       # Go vet 检查
       - id: go-vet
         name: Go Vet
-        args: [-all]
+        # default runs against ./...
 
       # Go 单元测试
       - id: go-unit-tests
@@ -39,7 +39,7 @@ repos:
 
   # golangci-lint
   - repo: https://github.com/golangci/golangci-lint
-    rev: v1.55.2
+    rev: v1.61.0
     hooks:
       - id: golangci-lint
         name: golangci-lint
@@ -72,7 +72,7 @@ repos:
       # YAML 语法检查
       - id: check-yaml
         name: Check YAML Syntax
-        args: [--safe]
+        # --safe flag removed in newer versions; default is safe
 
       # JSON 语法检查
       - id: check-json
@@ -124,8 +124,8 @@ repos:
     hooks:
       - id: detect-secrets
         name: Detect Secrets
-        args: [--baseline, .secrets.baseline]
-        exclude: package.lock.json
+        # Baseline optional; scan changed files only
+        exclude: package-lock.json
 
 # 全局排除
 exclude: |

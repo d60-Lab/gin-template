@@ -4,11 +4,12 @@ import (
 	"context"
 	"testing"
 
-	"github.com/d60-Lab/gin-template/internal/model"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+
+	"github.com/d60-Lab/gin-template/internal/model"
 )
 
 // UserRepositoryTestSuite 用户仓储测试套件
@@ -44,7 +45,7 @@ func (suite *UserRepositoryTestSuite) TestCreate() {
 		ID:       "test-id-1",
 		Username: "testuser",
 		Email:    "test@example.com",
-		Password: "hashedpassword",
+		Password: "hashedpassword", // pragma: allowlist secret
 		Age:      25,
 	}
 
@@ -66,7 +67,7 @@ func (suite *UserRepositoryTestSuite) TestGetByID() {
 		ID:       "test-id-2",
 		Username: "testuser2",
 		Email:    "test2@example.com",
-		Password: "hashedpassword",
+		Password: "hashedpassword", // pragma: allowlist secret
 		Age:      30,
 	}
 	err := suite.repo.Create(ctx, user)
@@ -96,7 +97,7 @@ func (suite *UserRepositoryTestSuite) TestGetByUsername() {
 		ID:       "test-id-3",
 		Username: "testuser3",
 		Email:    "test3@example.com",
-		Password: "hashedpassword",
+		Password: "hashedpassword", // pragma: allowlist secret
 	}
 	err := suite.repo.Create(ctx, user)
 	assert.NoError(suite.T(), err)
@@ -116,7 +117,7 @@ func (suite *UserRepositoryTestSuite) TestGetByEmail() {
 		ID:       "test-id-4",
 		Username: "testuser4",
 		Email:    "test4@example.com",
-		Password: "hashedpassword",
+		Password: "hashedpassword", // pragma: allowlist secret
 	}
 	err := suite.repo.Create(ctx, user)
 	assert.NoError(suite.T(), err)
@@ -136,7 +137,7 @@ func (suite *UserRepositoryTestSuite) TestUpdate() {
 		ID:       "test-id-5",
 		Username: "testuser5",
 		Email:    "test5@example.com",
-		Password: "hashedpassword",
+		Password: "hashedpassword", // pragma: allowlist secret
 		Age:      25,
 	}
 	err := suite.repo.Create(ctx, user)
@@ -163,7 +164,7 @@ func (suite *UserRepositoryTestSuite) TestDelete() {
 		ID:       "test-id-6",
 		Username: "testuser6",
 		Email:    "test6@example.com",
-		Password: "hashedpassword",
+		Password: "hashedpassword", // pragma: allowlist secret
 	}
 	err := suite.repo.Create(ctx, user)
 	assert.NoError(suite.T(), err)
@@ -188,7 +189,7 @@ func (suite *UserRepositoryTestSuite) TestList() {
 			ID:       "test-id-" + string(rune(i)),
 			Username: "testuser" + string(rune(i)),
 			Email:    "test" + string(rune(i)) + "@example.com",
-			Password: "hashedpassword",
+			Password: "hashedpassword", // pragma: allowlist secret
 		}
 		err := suite.repo.Create(ctx, user)
 		assert.NoError(suite.T(), err)

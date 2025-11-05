@@ -3,10 +3,11 @@ package handler
 import (
 	"strconv"
 
+	"github.com/gin-gonic/gin"
+
 	"github.com/d60-Lab/gin-template/internal/dto"
 	"github.com/d60-Lab/gin-template/internal/service"
 	"github.com/d60-Lab/gin-template/pkg/response"
-	"github.com/gin-gonic/gin"
 )
 
 // Handler 处理器结构
@@ -204,8 +205,17 @@ func (h *Handler) Login(c *gin.Context) {
 // @Failure 500 {object} response.Response
 // @Router /api/v1/users [get]
 func (h *Handler) ListUsers(c *gin.Context) {
-	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
-	pageSize, _ := strconv.Atoi(c.DefaultQuery("page_size", "10"))
+	pageStr := c.DefaultQuery("page", "1")
+	page, err := strconv.Atoi(pageStr)
+	if err != nil {
+		page = 1
+	}
+
+	pageSizeStr := c.DefaultQuery("page_size", "10")
+	pageSize, err := strconv.Atoi(pageSizeStr)
+	if err != nil {
+		pageSize = 10
+	}
 
 	if page < 1 {
 		page = 1

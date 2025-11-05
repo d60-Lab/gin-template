@@ -3,8 +3,9 @@ package repository
 import (
 	"context"
 
-	"github.com/d60-Lab/gin-template/internal/model"
 	"gorm.io/gorm"
+
+	"github.com/d60-Lab/gin-template/internal/model"
 )
 
 // UserRepository 用户仓储接口

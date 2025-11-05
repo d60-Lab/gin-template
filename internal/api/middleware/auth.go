@@ -3,10 +3,11 @@ package middleware
 import (
 	"strings"
 
+	"github.com/gin-gonic/gin"
+
 	"github.com/d60-Lab/gin-template/config"
 	"github.com/d60-Lab/gin-template/pkg/jwt"
 	"github.com/d60-Lab/gin-template/pkg/response"
-	"github.com/gin-gonic/gin"
 )
 
 // Auth JWT 认证中间件

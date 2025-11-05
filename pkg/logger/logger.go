@@ -1,8 +1,6 @@
 package logger
 
 import (
-	"os"
-
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -35,7 +33,9 @@ func Init(mode string) error {
 // Sync 同步日志
 func Sync() {
 	if log != nil {
-		_ = log.Sync()
+		if err := log.Sync(); err != nil {
+			log.Debug("logger sync error", zap.Error(err))
+		}
 	}
 }
 
@@ -62,5 +62,4 @@ func Debug(msg string, fields ...zap.Field) {
 // Fatal 致命错误日志
 func Fatal(msg string, fields ...zap.Field) {
 	log.Fatal(msg, fields...)
-	os.Exit(1)
 }

@@ -9,6 +9,10 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/getsentry/sentry-go"
+	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
+
 	"github.com/d60-Lab/gin-template/config"
 	"github.com/d60-Lab/gin-template/internal/api/handler"
 	"github.com/d60-Lab/gin-template/internal/api/middleware"
@@ -18,9 +22,6 @@ import (
 	"github.com/d60-Lab/gin-template/pkg/database"
 	"github.com/d60-Lab/gin-template/pkg/logger"
 	"github.com/d60-Lab/gin-template/pkg/validator"
-	"github.com/getsentry/sentry-go"
-	"github.com/gin-gonic/gin"
-	"go.uber.org/zap"
 )
 
 // @title Gin Template API

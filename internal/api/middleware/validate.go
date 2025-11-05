@@ -1,8 +1,9 @@
 package middleware
 
 import (
-	"github.com/d60-Lab/gin-template/pkg/response"
 	"github.com/gin-gonic/gin"
+
+	"github.com/d60-Lab/gin-template/pkg/response"
 )
 
 // ValidateJSON 通用 JSON 参数验证中间件

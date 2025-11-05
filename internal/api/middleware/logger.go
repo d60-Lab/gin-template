@@ -3,9 +3,10 @@ package middleware
 import (
 	"time"
 
-	"github.com/d60-Lab/gin-template/pkg/logger"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+
+	"github.com/d60-Lab/gin-template/pkg/logger"
 )
 
 // Logger 日志中间件

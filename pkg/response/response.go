@@ -51,7 +51,7 @@ func NotFound(c *gin.Context, message string) {
 }
 
 // InternalError 500 内部错误
-func InternalError(c *gin.Context, err error) {
+func InternalError(c *gin.Context, _ error) {
 	// 生产环境不要暴露详细错误信息
 	Error(c, http.StatusInternalServerError, "internal server error")
 }

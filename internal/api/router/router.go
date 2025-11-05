@@ -1,14 +1,15 @@
 package router
 
 import (
-	"github.com/d60-Lab/gin-template/config"
-	_ "github.com/d60-Lab/gin-template/docs" // swagger docs
-	"github.com/d60-Lab/gin-template/internal/api/handler"
-	"github.com/d60-Lab/gin-template/internal/api/middleware"
 	"github.com/gin-contrib/gzip"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+
+	"github.com/d60-Lab/gin-template/config"
+	_ "github.com/d60-Lab/gin-template/docs" // swagger docs
+	"github.com/d60-Lab/gin-template/internal/api/handler"
+	"github.com/d60-Lab/gin-template/internal/api/middleware"
 )
 
 // Setup 设置路由

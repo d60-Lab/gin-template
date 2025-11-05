@@ -9,12 +9,13 @@ import (
 	"os"
 	"testing"
 
-	"github.com/d60-Lab/gin-template/internal/dto"
-	"github.com/d60-Lab/gin-template/internal/service"
-	"github.com/d60-Lab/gin-template/pkg/validator"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
+
+	"github.com/d60-Lab/gin-template/internal/dto"
+	"github.com/d60-Lab/gin-template/internal/service"
+	"github.com/d60-Lab/gin-template/pkg/validator"
 )
 
 func TestMain(m *testing.M) {
@@ -36,7 +37,10 @@ func (m *MockUserService) Create(ctx context.Context, req *dto.CreateUserRequest
 	if args.Get(0) == nil {
 		return nil, args.Error(1)
 	}
-	return args.Get(0).(*dto.UserResponse), args.Error(1)
+	if v, ok := args.Get(0).(*dto.UserResponse); ok {
+		return v, args.Error(1)
+	}
+	return nil, args.Error(1)
 }
 
 func (m *MockUserService) GetByID(ctx context.Context, id string) (*dto.UserResponse, error) {
@@ -44,7 +48,10 @@ func (m *MockUserService) GetByID(ctx context.Context, id string) (*dto.UserResp
 	if args.Get(0) == nil {
 		return nil, args.Error(1)
 	}
-	return args.Get(0).(*dto.UserResponse), args.Error(1)
+	if v, ok := args.Get(0).(*dto.UserResponse); ok {
+		return v, args.Error(1)
+	}
+	return nil, args.Error(1)
 }
 
 func (m *MockUserService) Update(ctx context.Context, id string, req *dto.UpdateUserRequest) (*dto.UserResponse, error) {
@@ -52,7 +59,10 @@ func (m *MockUserService) Update(ctx context.Context, id string, req *dto.Update
 	if args.Get(0) == nil {
 		return nil, args.Error(1)
 	}
-	return args.Get(0).(*dto.UserResponse), args.Error(1)
+	if v, ok := args.Get(0).(*dto.UserResponse); ok {
+		return v, args.Error(1)
+	}
+	return nil, args.Error(1)
 }
 
 func (m *MockUserService) Delete(ctx context.Context, id string) error {
@@ -65,7 +75,10 @@ func (m *MockUserService) Login(ctx context.Context, req *dto.LoginRequest) (*dt
 	if args.Get(0) == nil {
 		return nil, args.Error(1)
 	}
-	return args.Get(0).(*dto.LoginResponse), args.Error(1)
+	if v, ok := args.Get(0).(*dto.LoginResponse); ok {
+		return v, args.Error(1)
+	}
+	return nil, args.Error(1)
 }
 
 func (m *MockUserService) List(ctx context.Context, page, pageSize int) ([]*dto.UserResponse, error) {
@@ -73,7 +86,10 @@ func (m *MockUserService) List(ctx context.Context, page, pageSize int) ([]*dto.
 	if args.Get(0) == nil {
 		return nil, args.Error(1)
 	}
-	return args.Get(0).([]*dto.UserResponse), args.Error(1)
+	if v, ok := args.Get(0).([]*dto.UserResponse); ok {
+		return v, args.Error(1)
+	}
+	return nil, args.Error(1)
 }
 
 func TestGetUser(t *testing.T) {
@@ -94,7 +110,10 @@ func TestGetUser(t *testing.T) {
 	c, r := gin.CreateTestContext(w)
 	r.GET("/users/:id", handler.GetUser)
 
-	req, _ := http.NewRequest("GET", "/users/1", nil)
+	req, err := http.NewRequestWithContext(context.Background(), "GET", "/users/1", nil)
+	if err != nil {
+		t.Fatalf("failed to create request: %v", err)
+	}
 	c.Request = req
 
 	r.ServeHTTP(w, req)
@@ -112,7 +131,7 @@ func TestCreateUser(t *testing.T) {
 	createReq := &dto.CreateUserRequest{
 		Username: "testuser",
 		Email:    "test@example.com",
-		Password: "password123",
+		Password: "password123", // pragma: allowlist secret
 	}
 
 	expectedUser := &dto.UserResponse{
@@ -127,8 +146,14 @@ func TestCreateUser(t *testing.T) {
 	c, r := gin.CreateTestContext(w)
 	r.POST("/users", handler.CreateUser)
 
-	jsonData, _ := json.Marshal(createReq)
-	req, _ := http.NewRequest("POST", "/users", bytes.NewBuffer(jsonData))
+	jsonData, err := json.Marshal(createReq)
+	if err != nil {
+		t.Fatalf("failed to marshal request: %v", err)
+	}
+	req, err := http.NewRequestWithContext(context.Background(), "POST", "/users", bytes.NewBuffer(jsonData))
+	if err != nil {
+		t.Fatalf("failed to create request: %v", err)
+	}
 	req.Header.Set("Content-Type", "application/json")
 	c.Request = req
 
@@ -150,7 +175,10 @@ func TestGetUserNotFound(t *testing.T) {
 	c, r := gin.CreateTestContext(w)
 	r.GET("/users/:id", handler.GetUser)
 
-	req, _ := http.NewRequest("GET", "/users/999", nil)
+	req, err := http.NewRequestWithContext(context.Background(), "GET", "/users/999", nil)
+	if err != nil {
+		t.Fatalf("failed to create request: %v", err)
+	}
 	c.Request = req
 
 	r.ServeHTTP(w, req)

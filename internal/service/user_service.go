@@ -4,13 +4,14 @@ import (
 	"context"
 	"errors"
 
+	"github.com/google/uuid"
+	"golang.org/x/crypto/bcrypt"
+
 	"github.com/d60-Lab/gin-template/config"
 	"github.com/d60-Lab/gin-template/internal/dto"
 	"github.com/d60-Lab/gin-template/internal/model"
 	"github.com/d60-Lab/gin-template/internal/repository"
 	"github.com/d60-Lab/gin-template/pkg/jwt"
-	"github.com/google/uuid"
-	"golang.org/x/crypto/bcrypt"
 )
 
 var (
@@ -148,7 +149,7 @@ func (s *userService) Login(ctx context.Context, req *dto.LoginRequest) (*dto.Lo
 	}
 
 	// 生成 JWT token
-	token, err := jwt.GenerateToken(user.ID, user.Username, s.cfg.JWT.Secret, s.cfg.JWT.Expire)
+	token, err := jwt.GenerateToken(user.ID, user.Username, s.cfg.JWT.Secret, s.cfg.JWT.Expire) // pragma: allowlist secret
 	if err != nil {
 		return nil, err
 	}
