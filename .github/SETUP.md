@@ -101,10 +101,12 @@ make run
 ```
 
 **参数说明：**
+
 - `<project-name>`: 你的项目名称（用于文档）
 - `<module-path>`: Go 模块路径（如 `github.com/username/project`）
 
 **示例：**
+
 ```bash
 ./scripts/init-project.sh my-api github.com/mycompany/my-api
 ```
@@ -126,18 +128,22 @@ make run
 ## 可选功能配置
 
 ### Swagger 文档
+
 - 访问地址：`http://localhost:8080/swagger/index.html`
 - 更新文档：`make swagger`
 
 ### Pprof 性能分析
+
 ```yaml
 # config/config.yaml
 pprof:
   enabled: true
 ```
+
 访问：`http://localhost:8080/debug/pprof/`
 
 ### Sentry 错误追踪
+
 ```yaml
 # config/config.yaml
 sentry:
@@ -147,10 +153,12 @@ sentry:
 ```
 
 ### OpenTelemetry 追踪
+
 ```bash
 # 启动 Jaeger
 docker run -d -p 16686:16686 -p 14268:14268 jaegertracing/all-in-one:latest
 ```
+
 ```yaml
 # config/config.yaml
 tracing:

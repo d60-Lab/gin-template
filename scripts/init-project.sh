@@ -178,7 +178,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "  3) 跳过"
     read -p "请选择 (1-3): " -n 1 -r DB_CHOICE
     echo ""
-    
+
     case $DB_CHOICE in
         1)
             if command -v docker-compose &> /dev/null || command -v docker &> /dev/null; then

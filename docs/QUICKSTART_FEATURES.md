@@ -17,16 +17,19 @@ make dev
 ```
 
 然后在浏览器中打开：
+
 ```
 http://localhost:8080/swagger/index.html
 ```
 
 您将看到：
+
 - 📖 所有 API 接口的详细文档
 - 🧪 可以直接在线测试 API
 - 📝 请求/响应的数据结构
 
 **更新 Swagger 文档**（修改 API 注释后）：
+
 ```bash
 make swagger
 ```
@@ -62,7 +65,7 @@ make test-coverage
 // internal/api/router/router.go
 import "github.com/d60-Lab/gin-template/internal/api/middleware"
 
-router.POST("/users", 
+router.POST("/users",
     middleware.ValidateJSON(&dto.CreateUserRequest{}),  // 添加验证中间件
     handler.CreateUser)
 ```
@@ -75,7 +78,7 @@ func (h *Handler) CreateUser(c *gin.Context) {
     // 不再需要手动验证！
     req, _ := middleware.GetValidatedRequest(c)
     userReq := req.(*dto.CreateUserRequest)
-    
+
     // 直接使用已验证的数据
     user, err := h.service.Create(c.Request.Context(), userReq)
     // ...
@@ -83,6 +86,7 @@ func (h *Handler) CreateUser(c *gin.Context) {
 ```
 
 **对比效果**：
+
 - ❌ 之前：每个 Handler 都要写 `ShouldBindJSON` 和错误处理（5-8 行代码）
 - ✅ 现在：在路由配置一次，Handler 直接获取（1 行代码）
 
@@ -114,6 +118,7 @@ go tool pprof http://localhost:8080/debug/pprof/heap
 ```
 
 **快速分析命令**：
+
 ```bash
 # CPU 分析（30 秒）
 go tool pprof -http=:8081 http://localhost:8080/debug/pprof/profile?seconds=30
@@ -148,6 +153,7 @@ sentry:
 ```
 
 或使用环境变量：
+
 ```bash
 export SENTRY_DSN="https://your-key@o123456.ingest.sentry.io/789"
 export SENTRY_ENVIRONMENT="development"
@@ -162,6 +168,7 @@ make run
 触发一个错误（如访问不存在的接口），然后在 Sentry 控制台查看错误报告。
 
 **手动发送错误**：
+
 ```go
 import "github.com/getsentry/sentry-go"
 
@@ -208,6 +215,7 @@ http://localhost:16686
 **步骤 5**: 测试追踪
 
 发送几个 API 请求，然后在 Jaeger UI 中：
+
 1. 选择 Service: `gin-template`
 2. 点击 "Find Traces"
 3. 查看请求的完整链路和耗时
@@ -255,6 +263,7 @@ go test -v ./internal/repository/...
 pprof:
   enabled: true
 ```
+
 ```bash
 make run
 go tool pprof -http=:8081 http://localhost:8080/debug/pprof/heap
@@ -277,6 +286,7 @@ sentry:
 # 启动 Jaeger
 docker run -d --name jaeger -p 16686:16686 -p 14268:14268 jaegertracing/all-in-one:latest
 ```
+
 ```yaml
 # config/config.yaml
 tracing:
@@ -320,6 +330,7 @@ pprof:
 1. 检查 DSN 是否正确
 2. 检查网络连接
 3. 启用 debug 模式：
+
 ```yaml
 sentry:
   debug: true

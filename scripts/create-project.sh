@@ -2,8 +2,8 @@
 
 # Gin Template 项目创建脚本
 # 直接从 GitHub 下载模板并创建新项目
-# 
-# 用法: 
+#
+# 用法:
 #   curl -fsSL https://raw.githubusercontent.com/d60-Lab/gin-template/main/scripts/create-project.sh | bash -s -- my-project
 #   或
 #   ./create-project.sh my-project
@@ -101,16 +101,16 @@ if [ -f "scripts/init-project.sh" ]; then
     ./scripts/init-project.sh
 else
     echo -e "${YELLOW}⚠ 初始化脚本不存在，跳过配置${NC}"
-    
+
     # 基本配置
     echo -e "${BLUE}执行基本配置...${NC}"
-    
+
     # 创建 .env
     if [ -f ".env.example" ]; then
         cp .env.example .env
         echo -e "${GREEN}✓ .env 文件已创建${NC}"
     fi
-    
+
     # 下载依赖
     go mod tidy
     echo -e "${GREEN}✓ 依赖下载完成${NC}"
