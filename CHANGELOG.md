@@ -255,14 +255,14 @@ find . -name "*.go" -not -path "./vendor/*" | xargs wc -l
 
 ### 特性亮点
 
-🎯 **分层清晰** - 采用 DDD 分层架构，职责明确  
-🔐 **安全可靠** - JWT 认证、密码加密、安全中间件  
-📝 **文档完善** - 包含 API 文档、快速开始、架构设计  
-🧪 **可测试性** - 依赖注入、接口抽象、测试示例  
-🐳 **容器化** - 完整的 Docker 支持  
-🔥 **开发友好** - 热重载、Makefile、详细注释  
-⚡ **性能优化** - 压缩、连接池、限流  
-🛡️ **生产就绪** - 优雅关闭、错误处理、日志记录  
+🎯 **分层清晰** - 采用 DDD 分层架构，职责明确
+🔐 **安全可靠** - JWT 认证、密码加密、安全中间件
+📝 **文档完善** - 包含 API 文档、快速开始、架构设计
+🧪 **可测试性** - 依赖注入、接口抽象、测试示例
+🐳 **容器化** - 完整的 Docker 支持
+🔥 **开发友好** - 热重载、Makefile、详细注释
+⚡ **性能优化** - 压缩、连接池、限流
+🛡️ **生产就绪** - 优雅关闭、错误处理、日志记录
 
 ## 维护者
 
@@ -294,12 +294,12 @@ git pull origin main
 ## 反馈
 
 如有问题或建议，请：
-1. 提交 [Issue](https://github.com/bjmayor/gin-template/issues)
-2. 发起 [Pull Request](https://github.com/bjmayor/gin-template/pulls)
-3. 参与 [Discussions](https://github.com/bjmayor/gin-template/discussions)
+1. 提交 [Issue](https://github.com/d60-Lab/gin-template/issues)
+2. 发起 [Pull Request](https://github.com/d60-Lab/gin-template/pulls)
+3. 参与 [Discussions](https://github.com/d60-Lab/gin-template/discussions)
 
 ---
 
-**说明**: 
+**说明**:
 - 日期格式: YYYY-MM-DD
 - 类型: 新增 (Added) | 变更 (Changed) | 废弃 (Deprecated) | 移除 (Removed) | 修复 (Fixed) | 安全 (Security)

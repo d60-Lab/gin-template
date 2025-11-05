@@ -94,7 +94,7 @@ linters-settings:
   # goimports 配置
   goimports:
     # 本地包前缀
-    local-prefixes: github.com/bjmayor/gin-template
+    local-prefixes: github.com/d60-Lab/gin-template
 
   # revive 配置
   revive:

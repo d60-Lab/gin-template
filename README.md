@@ -344,6 +344,7 @@ docker-compose up -d
 ```
 
 这将启动以下服务：
+
 - 应用服务（端口 8080）
 - PostgreSQL 数据库（端口 5432）
 - Redis 缓存（端口 6379）

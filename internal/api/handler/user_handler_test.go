@@ -8,8 +8,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/bjmayor/gin-template/internal/dto"
-	"github.com/bjmayor/gin-template/internal/service"
+	"github.com/d60-Lab/gin-template/internal/dto"
+	"github.com/d60-Lab/gin-template/internal/service"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"

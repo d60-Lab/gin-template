@@ -1463,4 +1463,4 @@ make verify    # 提交前验证
 - [Go Pprof 使用指南](https://go.dev/blog/pprof)
 - [Sentry Go SDK](https://docs.sentry.io/platforms/go/)
 - [OpenTelemetry Go](https://opentelemetry.io/docs/instrumentation/go/)
-- [完整项目模板](https://github.com/bjmayor/gin-template)
+- [完整项目模板](https://github.com/d60-Lab/gin-template)

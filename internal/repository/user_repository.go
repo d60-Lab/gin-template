@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 
-	"github.com/bjmayor/gin-template/internal/model"
+	"github.com/d60-Lab/gin-template/internal/model"
 	"gorm.io/gorm"
 )
 

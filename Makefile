@@ -39,7 +39,7 @@ lint-fix: ## 运行代码检查并自动修复
 
 fmt: ## 格式化代码
 	go fmt ./...
-	goimports -w -local github.com/bjmayor/gin-template .
+	goimports -w -local github.com/d60-Lab/gin-template .
 
 pre-commit: ## 运行 pre-commit 检查所有文件
 	pre-commit run --all-files

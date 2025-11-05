@@ -3,7 +3,7 @@ package middleware
 import (
 	"time"
 
-	"github.com/bjmayor/gin-template/pkg/logger"
+	"github.com/d60-Lab/gin-template/pkg/logger"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )

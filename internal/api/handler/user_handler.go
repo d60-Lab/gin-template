@@ -3,9 +3,9 @@ package handler
 import (
 	"strconv"
 
-	"github.com/bjmayor/gin-template/internal/dto"
-	"github.com/bjmayor/gin-template/internal/service"
-	"github.com/bjmayor/gin-template/pkg/response"
+	"github.com/d60-Lab/gin-template/internal/dto"
+	"github.com/d60-Lab/gin-template/internal/service"
+	"github.com/d60-Lab/gin-template/pkg/response"
 	"github.com/gin-gonic/gin"
 )
 

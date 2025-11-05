@@ -3,9 +3,9 @@ package middleware
 import (
 	"strings"
 
-	"github.com/bjmayor/gin-template/config"
-	"github.com/bjmayor/gin-template/pkg/jwt"
-	"github.com/bjmayor/gin-template/pkg/response"
+	"github.com/d60-Lab/gin-template/config"
+	"github.com/d60-Lab/gin-template/pkg/jwt"
+	"github.com/d60-Lab/gin-template/pkg/response"
 	"github.com/gin-gonic/gin"
 )
 

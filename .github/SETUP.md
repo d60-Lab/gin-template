@@ -65,7 +65,7 @@ make run
 
 ```bash
 # 1. 从模板创建新仓库
-gh repo create your-new-project --template bjmayor/gin-template --public
+gh repo create your-new-project --template d60-Lab/gin-template --public
 
 # 2. 克隆到本地
 gh repo clone your-username/your-new-project

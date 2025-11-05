@@ -1,4 +1,4 @@
-module github.com/bjmayor/gin-template
+module github.com/d60-Lab/gin-template
 
 go 1.21
 

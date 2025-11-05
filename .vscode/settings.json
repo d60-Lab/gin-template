@@ -4,7 +4,7 @@
   "go.lintTool": "golangci-lint",
   "go.lintOnSave": "workspace",
   "go.formatTool": "goimports",
-  "go.formatFlags": ["-local", "github.com/bjmayor/gin-template"],
+  "go.formatFlags": ["-local", "github.com/d60-Lab/gin-template"],
 
   // 保存时自动操作
   "[go]": {

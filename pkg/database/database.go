@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/bjmayor/gin-template/config"
-	"github.com/bjmayor/gin-template/internal/model"
+	"github.com/d60-Lab/gin-template/config"
+	"github.com/d60-Lab/gin-template/internal/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

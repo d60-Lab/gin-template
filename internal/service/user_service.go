@@ -4,11 +4,11 @@ import (
 	"context"
 	"errors"
 
-	"github.com/bjmayor/gin-template/config"
-	"github.com/bjmayor/gin-template/internal/dto"
-	"github.com/bjmayor/gin-template/internal/model"
-	"github.com/bjmayor/gin-template/internal/repository"
-	"github.com/bjmayor/gin-template/pkg/jwt"
+	"github.com/d60-Lab/gin-template/config"
+	"github.com/d60-Lab/gin-template/internal/dto"
+	"github.com/d60-Lab/gin-template/internal/model"
+	"github.com/d60-Lab/gin-template/internal/repository"
+	"github.com/d60-Lab/gin-template/pkg/jwt"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 )

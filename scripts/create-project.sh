@@ -4,7 +4,7 @@
 # 直接从 GitHub 下载模板并创建新项目
 # 
 # 用法: 
-#   curl -fsSL https://raw.githubusercontent.com/bjmayor/gin-template/main/scripts/create-project.sh | bash -s -- my-project
+#   curl -fsSL https://raw.githubusercontent.com/d60-Lab/gin-template/main/scripts/create-project.sh | bash -s -- my-project
 #   或
 #   ./create-project.sh my-project
 
@@ -17,7 +17,7 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-TEMPLATE_REPO="https://github.com/bjmayor/gin-template"
+TEMPLATE_REPO="https://github.com/d60-Lab/gin-template"
 TEMPLATE_NAME="gin-template"
 
 # 检查参数
@@ -72,7 +72,7 @@ echo -e "${BLUE}📥 下载模板...${NC}"
 
 # 方法 1: 使用 degit (如果安装了)
 if command -v degit &> /dev/null; then
-    degit bjmayor/gin-template "$PROJECT_DIR"
+    degit d60-Lab/gin-template "$PROJECT_DIR"
     echo -e "${GREEN}✓ 使用 degit 下载完成${NC}"
 else
     # 方法 2: 使用 git clone

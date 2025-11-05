@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/bjmayor/gin-template/internal/model"
+	"github.com/d60-Lab/gin-template/internal/model"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 	"gorm.io/driver/sqlite"

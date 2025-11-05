@@ -60,7 +60,7 @@ make test-coverage
 
 ```go
 // internal/api/router/router.go
-import "github.com/bjmayor/gin-template/internal/api/middleware"
+import "github.com/d60-Lab/gin-template/internal/api/middleware"
 
 router.POST("/users", 
     middleware.ValidateJSON(&dto.CreateUserRequest{}),  // 添加验证中间件
@@ -296,7 +296,7 @@ make swagger
 
 # 确保引入了 swagger 包
 # cmd/server/main.go 应该有：
-import _ "github.com/bjmayor/gin-template/docs"
+import _ "github.com/d60-Lab/gin-template/docs"
 ```
 
 ### 测试失败

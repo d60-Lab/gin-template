@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"github.com/bjmayor/gin-template/pkg/response"
+	"github.com/d60-Lab/gin-template/pkg/response"
 	"github.com/gin-gonic/gin"
 )
 

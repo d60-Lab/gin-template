@@ -23,7 +23,7 @@ echo ""
 # 检测当前 module 名称
 CURRENT_MODULE=$(go list -m 2>/dev/null || echo "")
 if [ -z "$CURRENT_MODULE" ]; then
-    CURRENT_MODULE="github.com/bjmayor/gin-template"
+    CURRENT_MODULE="github.com/d60-Lab/gin-template"
 fi
 
 echo -e "${YELLOW}当前模块名称: ${CURRENT_MODULE}${NC}"
@@ -103,10 +103,10 @@ fi
 echo -e "${BLUE}[3/9]${NC} 更新 README.md..."
 if [[ "$OSTYPE" == "darwin"* ]]; then
     sed -i '' "s|gin-template|$PROJECT_NAME|g" README.md
-    sed -i '' "s|bjmayor/gin-template|$NEW_MODULE|g" README.md
+    sed -i '' "s|d60-Lab/gin-template|$NEW_MODULE|g" README.md
 else
     sed -i "s|gin-template|$PROJECT_NAME|g" README.md
-    sed -i "s|bjmayor/gin-template|$NEW_MODULE|g" README.md
+    sed -i "s|d60-Lab/gin-template|$NEW_MODULE|g" README.md
 fi
 echo -e "${GREEN}✓${NC} README.md 已更新"
 
