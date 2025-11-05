@@ -1,0 +1,41 @@
+{
+  "recommendations": [
+    // Go 开发必备
+    "golang.go",
+
+    // REST API 测试
+    "humao.rest-client",
+
+    // Docker 支持
+    "ms-azuretools.vscode-docker",
+
+    // YAML 支持
+    "redhat.vscode-yaml",
+
+    // EditorConfig 支持
+    "editorconfig.editorconfig",
+
+    // Git 增强
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+
+    // Markdown 增强
+    "yzhang.markdown-all-in-one",
+    "davidanson.vscode-markdownlint",
+
+    // 代码质量
+    "streetsidesoftware.code-spell-checker",
+
+    // 实用工具
+    "aaron-bond.better-comments",
+    "wayou.vscode-todo-highlight",
+    "gruntfuggly.todo-tree",
+
+    // 主题和图标（可选）
+    "pkief.material-icon-theme",
+
+    // 数据库工具（可选）
+    "mtxr.sqltools",
+    "mtxr.sqltools-driver-pg"
+  ]
+}

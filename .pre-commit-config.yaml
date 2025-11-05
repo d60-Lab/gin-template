@@ -1,0 +1,139 @@
+# Pre-commit hooks 配置
+# 安装: pip install pre-commit
+# 启用: pre-commit install
+# 运行: pre-commit run --all-files
+
+repos:
+  # Go 相关检查
+  - repo: https://github.com/dnephin/pre-commit-golang
+    rev: v0.5.1
+    hooks:
+      # Go 格式化
+      - id: go-fmt
+        name: Go Format
+        args: [-w]
+
+      # Go imports 整理
+      - id: go-imports
+        name: Go Imports
+        args: [-w]
+
+      # Go vet 检查
+      - id: go-vet
+        name: Go Vet
+        args: [-all]
+
+      # Go 单元测试
+      - id: go-unit-tests
+        name: Go Unit Tests
+        args: [-v, -race, -timeout=30s]
+
+      # Go build 检查
+      - id: go-build
+        name: Go Build
+        args: [-o, /dev/null]
+
+      # Go mod tidy
+      - id: go-mod-tidy
+        name: Go Mod Tidy
+
+  # golangci-lint
+  - repo: https://github.com/golangci/golangci-lint
+    rev: v1.55.2
+    hooks:
+      - id: golangci-lint
+        name: golangci-lint
+        args:
+          - --timeout=5m
+          - --config=.golangci.yml
+
+  # 通用检查
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      # 文件尾部空行
+      - id: end-of-file-fixer
+        name: Fix End of Files
+
+      # 删除尾部空格
+      - id: trailing-whitespace
+        name: Trim Trailing Whitespace
+        args: [--markdown-linebreak-ext=md]
+
+      # 检查合并冲突标记
+      - id: check-merge-conflict
+        name: Check for Merge Conflicts
+
+      # 检查大文件
+      - id: check-added-large-files
+        name: Check for Large Files
+        args: [--maxkb=500]
+
+      # YAML 语法检查
+      - id: check-yaml
+        name: Check YAML Syntax
+        args: [--safe]
+
+      # JSON 语法检查
+      - id: check-json
+        name: Check JSON Syntax
+
+      # TOML 语法检查
+      - id: check-toml
+        name: Check TOML Syntax
+
+      # 检查可执行文件有 shebang
+      - id: check-executables-have-shebangs
+        name: Check Executables Have Shebangs
+
+      # 检查 shell 脚本语法
+      - id: check-shebang-scripts-are-executable
+        name: Check Shell Scripts Are Executable
+
+  # Markdown 检查
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.38.0
+    hooks:
+      - id: markdownlint
+        name: Markdown Lint
+        args: [--fix]
+
+  # Commit 消息检查
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v3.0.0
+    hooks:
+      - id: conventional-pre-commit
+        name: Conventional Commit Check
+        stages: [commit-msg]
+        args:
+          - feat
+          - fix
+          - docs
+          - style
+          - refactor
+          - perf
+          - test
+          - build
+          - ci
+          - chore
+          - revert
+
+  # 密钥检测
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        name: Detect Secrets
+        args: [--baseline, .secrets.baseline]
+        exclude: package.lock.json
+
+# 全局排除
+exclude: |
+  (?x)^(
+      .*\.pb\.go$|
+      .*\.gen\.go$|
+      vendor/.*|
+      .git/.*|
+      bin/.*|
+      docs/swagger.*
+  )$

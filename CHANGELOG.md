@@ -9,6 +9,8 @@
 
 ### 新增功能 (2024-11-05)
 
+#### 🎯 第一批：核心功能（上午）
+
 #### 📚 Swagger API 文档
 - ✅ 为所有 API 端点添加 Swagger 注释
 - ✅ 自动生成交互式 API 文档界面
@@ -51,23 +53,79 @@
 - ✅ 可自定义 Span 和属性
 - 相关文件：`internal/api/middleware/tracing.go`, `cmd/server/main.go`
 
+#### 🎯 第二批：开发工具（下午）
+
+#### 🧪 REST Client API 测试
+- ✅ 添加 `api-tests.http` 文件
+- ✅ 包含所有 API 端点的测试用例
+- ✅ 支持变量定义和响应数据提取
+- ✅ 覆盖正常流程和错误场景
+- ✅ 可在 VS Code 中直接运行
+
+#### 🎣 Pre-commit Hooks
+- ✅ 配置 `.pre-commit-config.yaml`
+- ✅ 集成多种代码检查工具：
+  - Go fmt, imports, vet
+  - golangci-lint
+  - YAML/JSON/TOML 语法检查
+  - Markdown lint
+  - Conventional Commits 检查
+  - 密钥检测
+- ✅ 提交前自动运行所有检查
+
+#### 📏 golangci-lint 配置
+- ✅ 完善的 `.golangci.yml` 配置
+- ✅ 启用 20+ 个 linters
+- ✅ 自定义规则和排除项
+- ✅ 针对测试文件的特殊配置
+
+#### ⚙️ EditorConfig
+- ✅ 添加 `.editorconfig` 文件
+- ✅ 统一不同编辑器的代码风格
+- ✅ 覆盖 Go, YAML, JSON, Markdown 等文件
+
+#### 💻 VS Code 配置
+- ✅ Workspace 设置（`.vscode/settings.json`）
+- ✅ 推荐扩展列表（`.vscode/extensions.json`）
+- ✅ 自动格式化和 lint 配置
+- ✅ Go 开发最佳配置
+
+#### 🤖 GitHub Actions CI/CD
+- ✅ CI 工作流（`.github/workflows/ci.yml`）
+  - 代码检查（golangci-lint）
+  - 单元测试和覆盖率
+  - 编译构建
+  - Docker 镜像构建
+  - 安全扫描（Gosec + Trivy）
+- ✅ Release 工作流（`.github/workflows/release.yml`）
+  - 多平台二进制构建
+  - GitHub Release 创建
+  - Docker 多架构镜像推送
+
 ### 变更
 
+- **README.md**: 添加开发工具部分，新增文档链接
+- **Makefile**: 新增命令：
+  - `make lint-fix` - 自动修复 lint 问题
+  - `make pre-commit` - 运行 pre-commit 检查
+  - `make pre-commit-install` - 安装 pre-commit hooks
+  - `make ci` - 运行完整 CI 流程
+  - `make verify` - 提交前验证
 - **internal/api/router/router.go**: 添加 Swagger UI 路由，条件性启用高级中间件
 - **cmd/server/main.go**: 添加 Sentry 和 OpenTelemetry 初始化逻辑
 - **config/config.go**: 新增 `PprofConfig`、`SentryConfig`、`TracingConfig` 结构
-- **go.mod**: 添加 Swagger、Sentry、OpenTelemetry、testify 等依赖
-- **Makefile**: 新增 `swagger` 命令，更新 `install-tools`
 
 ### 文档
 
 - ✅ 新增 `docs/FEATURES.md` - 高级功能使用指南（6 大功能详细说明）
-- ✅ 更新 `README.md` - 添加高级功能列表和 Swagger 访问说明
-- ✅ 更新 `CHANGELOG.md` - 记录所有新增功能
+- ✅ 新增 `docs/DEV_TOOLS.md` - 开发工具配置指南
+- ✅ 更新 `README.md` - 添加开发工具部分
+- ✅ 更新 `CHANGELOG.md` - 详细记录所有变更
 
 ### 新增依赖
 
 ```go
+// 高级功能
 github.com/getsentry/sentry-go v0.27.0
 github.com/swaggo/swag v1.16.3
 github.com/swaggo/gin-swagger v1.6.0

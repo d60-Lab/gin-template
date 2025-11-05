@@ -1,0 +1,181 @@
+# golangci-lint 配置文件
+# 文档: https://golangci-lint.run/usage/configuration/
+
+run:
+  # 超时时间
+  timeout: 5m
+
+  # 要检查的 Go 版本
+  go: '1.21'
+
+  # 跳过的目录
+  skip-dirs:
+    - vendor
+    - bin
+    - docs
+    - migrations
+
+  # 跳过的文件
+  skip-files:
+    - ".*\\.pb\\.go$"
+    - ".*\\.gen\\.go$"
+
+# 输出配置
+output:
+  # 输出格式: colored-line-number|line-number|json|tab|checkstyle|code-climate
+  format: colored-line-number
+
+  # 打印检查的文件
+  print-issued-lines: true
+
+  # 打印 linter 名称
+  print-linter-name: true
+
+# 启用的 linters
+linters:
+  enable:
+    # 默认启用
+    - errcheck      # 检查未处理的错误
+    - gosimple      # 简化代码
+    - govet         # Go vet 检查
+    - ineffassign   # 检查无效赋值
+    - staticcheck   # 静态检查
+    - unused        # 检查未使用的常量、变量、函数等
+
+    # 代码质量
+    - gocyclo       # 检查函数复杂度
+    - gofmt         # 检查代码格式
+    - goimports     # 检查 import 顺序
+    - revive        # 替代 golint
+    - misspell      # 检查拼写错误
+    - goconst       # 检查可以提取为常量的字符串
+    - dupl          # 检查重复代码
+    - gosec         # 安全检查
+
+    # 性能
+    - prealloc      # 检查切片预分配
+
+    # 风格
+    - stylecheck    # 风格检查
+    - whitespace    # 空格检查
+
+    # Bug 检测
+    - bodyclose     # 检查 HTTP response body 是否关闭
+    - noctx         # 检查是否传递 context
+    - rowserrcheck  # 检查 sql.Rows.Err 是否被检查
+    - sqlclosecheck # 检查 sql.Rows 和 sql.Stmt 是否关闭
+
+    # 复杂度
+    - funlen        # 函数长度检查
+    - gocognit      # 认知复杂度检查
+
+  disable:
+    - typecheck     # 在某些情况下可能误报
+
+# Linters 设置
+linters-settings:
+  # errcheck 配置
+  errcheck:
+    # 检查类型断言
+    check-type-assertions: true
+    # 检查空白标识符
+    check-blank: true
+
+  # gocyclo 配置
+  gocyclo:
+    # 最大复杂度
+    min-complexity: 15
+
+  # gofmt 配置
+  gofmt:
+    # 简化代码
+    simplify: true
+
+  # goimports 配置
+  goimports:
+    # 本地包前缀
+    local-prefixes: github.com/bjmayor/gin-template
+
+  # revive 配置
+  revive:
+    confidence: 0.8
+    rules:
+      - name: blank-imports
+      - name: context-as-argument
+      - name: context-keys-type
+      - name: dot-imports
+      - name: error-return
+      - name: error-strings
+      - name: error-naming
+      - name: exported
+      - name: if-return
+      - name: increment-decrement
+      - name: var-naming
+      - name: var-declaration
+      - name: package-comments
+      - name: range
+      - name: receiver-naming
+      - name: time-naming
+      - name: unexported-return
+      - name: indent-error-flow
+      - name: errorf
+      - name: empty-block
+      - name: superfluous-else
+      - name: unused-parameter
+      - name: unreachable-code
+      - name: redefines-builtin-id
+
+  # goconst 配置
+  goconst:
+    # 最小字符串长度
+    min-len: 3
+    # 最小出现次数
+    min-occurrences: 3
+
+  # dupl 配置
+  dupl:
+    # 重复代码阈值
+    threshold: 100
+
+  # gosec 配置
+  gosec:
+    excludes:
+      - G404  # 使用弱随机数生成器（在非加密场景可接受）
+
+  # funlen 配置
+  funlen:
+    lines: 100
+    statements: 50
+
+  # gocognit 配置
+  gocognit:
+    min-complexity: 20
+
+# Issues 配置
+issues:
+  # 排除的规则
+  exclude-rules:
+    # 排除测试文件的某些检查
+    - path: _test\.go
+      linters:
+        - funlen
+        - gocyclo
+        - dupl
+        - gosec
+
+    # 排除生成的文件
+    - path: \.pb\.go
+      linters:
+        - all
+
+    # 排除 main.go 的某些检查
+    - path: cmd/server/main\.go
+      linters:
+        - funlen
+
+  # 最大 issues 数量，0 表示无限制
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+  # 显示所有 issues
+  new: false

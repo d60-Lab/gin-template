@@ -1,0 +1,141 @@
+# Gin Template API Tests
+# 使用 VS Code REST Client 扩展运行这些测试
+# 扩展 ID: humao.rest-client
+
+### 变量定义
+@baseUrl = http://localhost:8080
+@token = your-jwt-token-here
+
+### 健康检查
+GET {{baseUrl}}/health
+Accept: application/json
+
+### ============================================
+### 用户管理 API
+### ============================================
+
+### 1. 注册新用户
+POST {{baseUrl}}/api/v1/users
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "email": "test@example.com",
+  "password": "password123",
+  "age": 25
+}
+
+### 2. 用户登录
+# @name login
+POST {{baseUrl}}/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "password123"
+}
+
+### 3. 保存登录 token（自动从上一个请求提取）
+@authToken = {{login.response.body.data.token}}
+
+### 4. 获取用户列表（分页）
+GET {{baseUrl}}/api/v1/users?page=1&page_size=10
+Accept: application/json
+
+### 5. 获取用户详情
+GET {{baseUrl}}/api/v1/users/1
+Accept: application/json
+
+### 6. 根据用户名查询
+GET {{baseUrl}}/api/v1/users/username/testuser
+Accept: application/json
+
+### 7. 根据邮箱查询
+GET {{baseUrl}}/api/v1/users/email/test@example.com
+Accept: application/json
+
+### 8. 更新用户信息（需要认证）
+PUT {{baseUrl}}/api/v1/users/1
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "username": "updateduser",
+  "email": "updated@example.com",
+  "age": 26
+}
+
+### 9. 删除用户（需要认证和管理员权限）
+DELETE {{baseUrl}}/api/v1/users/1
+Authorization: Bearer {{authToken}}
+
+### ============================================
+### 错误场景测试
+### ============================================
+
+### 参数验证 - 用户名太短
+POST {{baseUrl}}/api/v1/users
+Content-Type: application/json
+
+{
+  "username": "ab",
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+### 参数验证 - 邮箱格式错误
+POST {{baseUrl}}/api/v1/users
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "email": "invalid-email",
+  "password": "password123"
+}
+
+### 参数验证 - 密码太短
+POST {{baseUrl}}/api/v1/users
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "email": "test@example.com",
+  "password": "123"
+}
+
+### 未授权访问
+PUT {{baseUrl}}/api/v1/users/1
+Content-Type: application/json
+
+{
+  "username": "hacker"
+}
+
+### 不存在的用户
+GET {{baseUrl}}/api/v1/users/99999
+Accept: application/json
+
+### ============================================
+### 性能测试端点（开启 pprof 后）
+### ============================================
+
+### CPU Profile（30秒采样）
+GET {{baseUrl}}/debug/pprof/profile?seconds=30
+
+### Heap Profile
+GET {{baseUrl}}/debug/pprof/heap
+
+### Goroutine
+GET {{baseUrl}}/debug/pprof/goroutine
+
+### ============================================
+### Swagger 文档
+### ============================================
+
+### Swagger UI
+# @name swaggerUI
+GET {{baseUrl}}/swagger/index.html
+
+### Swagger JSON
+GET {{baseUrl}}/swagger/doc.json
+Accept: application/json
