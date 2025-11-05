@@ -4,6 +4,39 @@
 
 Gin 是 Go 语言中最流行的 Web 框架之一，以其出色的性能和简洁的 API 设计深受开发者喜爱。然而，从"能用"到"好用"之间，还有很多工程实践需要遵循。本文将分享我在实际项目中总结的 Gin 最佳实践，帮助你构建更加健壮、可维护的应用。
 
+### 🚀 快速开始
+
+本文所有最佳实践已整合成完整的项目模板，可直接使用：
+
+**GitHub 仓库**: [https://github.com/d60-Lab/gin-template](https://github.com/d60-Lab/gin-template)
+
+```bash
+# 方式 1: 使用 GitHub 模板创建项目
+# 访问 https://github.com/d60-Lab/gin-template
+# 点击 "Use this template" 按钮
+
+# 方式 2: 克隆仓库
+git clone https://github.com/d60-Lab/gin-template.git my-project
+cd my-project
+
+# 方式 3: 使用初始化脚本（推荐）
+curl -fsSL https://raw.githubusercontent.com/d60-Lab/gin-template/main/scripts/init-project.sh | bash -s -- my-project
+```
+
+**模板特性**：
+
+- ✅ 完整的 DDD 分层架构
+- ✅ Swagger API 文档
+- ✅ 单元测试 + 集成测试
+- ✅ OpenTelemetry 链路追踪
+- ✅ Sentry 错误监控
+- ✅ Pre-commit + golangci-lint
+- ✅ GitHub Actions CI/CD
+- ✅ REST Client 测试集合
+- ✅ 开发工具配置齐全
+
+详细使用说明请参考 [README.md](https://github.com/d60-Lab/gin-template/blob/main/README.md)。
+
 ## 一、项目结构设计
 
 一个清晰的项目结构是可维护性的基础。推荐采用领域驱动设计（DDD）风格的分层架构：
