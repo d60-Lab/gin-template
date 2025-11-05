@@ -1,0 +1,341 @@
+basePath: /
+definitions:
+  github_com_bjmayor_gin-template_internal_dto.CreateUserRequest:
+    properties:
+      age:
+        maximum: 130
+        minimum: 0
+        type: integer
+      email:
+        type: string
+      password:
+        minLength: 6
+        type: string
+      username:
+        type: string
+    required:
+    - email
+    - password
+    - username
+    type: object
+  github_com_bjmayor_gin-template_internal_dto.LoginRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  github_com_bjmayor_gin-template_internal_dto.LoginResponse:
+    properties:
+      token:
+        type: string
+      user_id:
+        type: string
+      username:
+        type: string
+    type: object
+  github_com_bjmayor_gin-template_internal_dto.UpdateUserRequest:
+    properties:
+      age:
+        maximum: 130
+        minimum: 0
+        type: integer
+      email:
+        type: string
+      username:
+        type: string
+    type: object
+  github_com_bjmayor_gin-template_internal_dto.UserResponse:
+    properties:
+      age:
+        type: integer
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      updated_at:
+        type: string
+      username:
+        type: string
+    type: object
+  github_com_bjmayor_gin-template_pkg_response.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      message:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@example.com
+    name: API Support
+  description: 基于 Gin 框架的项目模板 API
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: Gin Template API
+  version: "1.0"
+paths:
+  /api/v1/auth/login:
+    post:
+      consumes:
+      - application/json
+      description: 用户登录并获取JWT token
+      parameters:
+      - description: 登录信息
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_bjmayor_gin-template_internal_dto.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_bjmayor_gin-template_internal_dto.LoginResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+      summary: 用户登录
+      tags:
+      - 认证
+  /api/v1/users:
+    get:
+      consumes:
+      - application/json
+      description: 获取用户列表（分页）
+      parameters:
+      - default: 1
+        description: 页码
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: 每页数量
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+            - properties:
+                data:
+                  additionalProperties: true
+                  type: object
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+      summary: 获取用户列表
+      tags:
+      - 用户管理
+    post:
+      consumes:
+      - application/json
+      description: 注册新用户
+      parameters:
+      - description: 用户信息
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_bjmayor_gin-template_internal_dto.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_bjmayor_gin-template_internal_dto.UserResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+      summary: 创建用户
+      tags:
+      - 用户管理
+  /api/v1/users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除用户（需要认证和管理员权限）
+      parameters:
+      - description: 用户ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+      security:
+      - Bearer: []
+      summary: 删除用户
+      tags:
+      - 用户管理
+    get:
+      consumes:
+      - application/json
+      description: 根据用户ID获取用户详细信息
+      parameters:
+      - description: 用户ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_bjmayor_gin-template_internal_dto.UserResponse'
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+      summary: 获取用户信息
+      tags:
+      - 用户管理
+    put:
+      consumes:
+      - application/json
+      description: 更新用户信息（需要认证）
+      parameters:
+      - description: 用户ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 更新信息
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_bjmayor_gin-template_internal_dto.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_bjmayor_gin-template_internal_dto.UserResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+      security:
+      - Bearer: []
+      summary: 更新用户信息
+      tags:
+      - 用户管理
+  /health:
+    get:
+      consumes:
+      - application/json
+      description: 检查服务是否正常运行
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_bjmayor_gin-template_pkg_response.Response'
+            - properties:
+                data:
+                  additionalProperties:
+                    type: string
+                  type: object
+              type: object
+      summary: 健康检查
+      tags:
+      - 系统
+securityDefinitions:
+  Bearer:
+    description: Type "Bearer" followed by a space and JWT token.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
