@@ -6,14 +6,25 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"testing"
 
 	"github.com/d60-Lab/gin-template/internal/dto"
 	"github.com/d60-Lab/gin-template/internal/service"
+	"github.com/d60-Lab/gin-template/pkg/validator"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
+
+func TestMain(m *testing.M) {
+	// 初始化自定义验证器
+	validator.Init()
+
+	// 运行测试
+	code := m.Run()
+	os.Exit(code)
+}
 
 // MockUserService 模拟用户服务
 type MockUserService struct {
