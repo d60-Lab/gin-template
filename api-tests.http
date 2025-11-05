@@ -1,6 +1,12 @@
 # Gin Template API Tests
 # 使用 VS Code REST Client 扩展运行这些测试
 # 扩展 ID: humao.rest-client
+#
+# 使用说明：
+# 1. 确保服务正在运行：make dev 或 make run
+# 2. 按顺序执行测试：先执行 "1. 注册新用户"，再执行其他测试
+# 3. 变量会自动提取：userId 和 authToken 会从响应中自动获取
+# 4. 点击每个请求上方的 "Send Request" 来发送请求
 
 ### 变量定义
 @baseUrl = http://localhost:8080
@@ -15,6 +21,7 @@ Accept: application/json
 ### ============================================
 
 ### 1. 注册新用户
+# @name createUser
 POST {{baseUrl}}/api/v1/users
 Content-Type: application/json
 
@@ -35,15 +42,17 @@ Content-Type: application/json
   "password": "password123"
 }
 
-### 3. 保存登录 token（自动从上一个请求提取）
+### 3. 保存登录 token 和用户 ID（自动从上一个请求提取）
 @authToken = {{login.response.body.data.token}}
+@userId = {{createUser.response.body.data.id}}
 
 ### 4. 获取用户列表（分页）
 GET {{baseUrl}}/api/v1/users?page=1&page_size=10
 Accept: application/json
 
 ### 5. 获取用户详情
-GET {{baseUrl}}/api/v1/users/1
+# 使用创建用户时返回的 ID
+GET {{baseUrl}}/api/v1/users/{{userId}}
 Accept: application/json
 
 ### 6. 根据用户名查询
@@ -55,7 +64,8 @@ GET {{baseUrl}}/api/v1/users/email/test@example.com
 Accept: application/json
 
 ### 8. 更新用户信息（需要认证）
-PUT {{baseUrl}}/api/v1/users/1
+# 使用创建用户时返回的 ID
+PUT {{baseUrl}}/api/v1/users/{{userId}}
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
@@ -66,7 +76,8 @@ Content-Type: application/json
 }
 
 ### 9. 删除用户（需要认证和管理员权限）
-DELETE {{baseUrl}}/api/v1/users/1
+# 使用创建用户时返回的 ID
+DELETE {{baseUrl}}/api/v1/users/{{userId}}
 Authorization: Bearer {{authToken}}
 
 ### ============================================
@@ -104,7 +115,8 @@ Content-Type: application/json
 }
 
 ### 未授权访问
-PUT {{baseUrl}}/api/v1/users/1
+# 尝试未授权更新用户
+PUT {{baseUrl}}/api/v1/users/{{userId}}
 Content-Type: application/json
 
 {
